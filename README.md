@@ -44,10 +44,10 @@
 ```
 # 开箱即用方式
 1. lite 版
-docker run -itd --name warp1082 --privileged --sysctl net.ipv4.conf.all.src_valid_mark=1 -p 1082:1080 -v /tmp/warp-wg-data1082:/etc/wireguard life8688/warp-wg-lite:latest
+docker run -itd --name warp1082 -p 1082:1080 --privileged --sysctl net.ipv4.conf.all.src_valid_mark=1 -v /tmp/warp-wg-data1082:/etc/wireguard life8688/warp-wg-lite:latest
 
 2. sing-box 版（零特权，推荐）
-docker run -itd --name warp-sb1083 -p 1083:1080 -e CHECK_INTERVAL=10 -v /tmp/warp-sb1083:/data   life8688/warp-sb:latest
+docker run -itd --name warp-sb1083 -p 1083:1080 -e CHECK_INTERVAL=10 -v /tmp/warp-sb1083:/data life8688/warp-sb:latest
 
 ```
 
