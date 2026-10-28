@@ -33,13 +33,13 @@ SOCKS5/HTTP 代理的极简容器。适合低配机器和大流量长跑场景�
 ### 1. 构建镜像
 
 ```bash
-git clone <本仓库> && cd warp-socks-pool/lite
+git clone https://github.com/jamosnet/warp-socks-pool && cd warp-socks-pool/lite
 
 # --build-arg HTTPS_PROXY 是【可选】的：仅构建镜像时用来从 GitHub 下载
 # wgcf 和 gost 两个文件。能直连 GitHub 就直接 docker compose build，什么都不
 # 用加。它只在构建期生效，容器运行期的流量与它毫无关系，不要误会成
 # "所有流量都要走代理"。
-docker compose build --build-arg HTTPS_PROXY=socks5h://192.168.8.124:10808
+docker compose build --build-arg HTTPS_PROXY=socks5h://192.168.1.1:10808
 ```
 
 ### 2. 启动
@@ -130,6 +130,11 @@ docker compose build && docker compose up -d --force-recreate
   每 15s 从容器里 curl 一次 Cloudflare trace（流量真实穿过隧道），连续 3 次
   失败才动手重建；重建时要握手 + trace 都通过才算修好，否则继续换端点，
   直到实测通过为止。
+- **US VPS 上 12 轮全失败、`wg show wgcf transfer` 恒为 0 0、allowed ips 显示
+  (none)？** 旧镜像的 IPv6 剥离 bug：`AllowedIPs = 0.0.0.0/0, ::/0` 含 `::/0`
+  被整行误删，导致无路由、握手包根本不发。修复数据卷里的 `wgcf.conf`：
+  在 `[Peer]` 段补一行 `AllowedIPs = 0.0.0.0/0` 再重启容器；或 rebuild 修复
+  后的镜像。
 - **宿主 localhost 通、局域网 IP 不通？** 旧数据卷缺少私有网段排除规则。
   确认 `wgcf.conf` 的 `[Interface]` 段内有 4 条 `PostUp = ip rule add to ...`。
 - **首次建立一直在轮换？** 正常：大陆网络对 WG 新会话握手有随机丢弃，

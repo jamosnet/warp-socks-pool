@@ -46,10 +46,15 @@ if [ ! -f "$CONF" ]; then
     log "配置已生成: $CONF"
 fi
 
-# 容器 IPv6 被禁用时剔除 v6 配置 (Address 含冒号 / ::/0 路由)
+# 容器 IPv6 被禁用时剔除 v6 配置
+# 警告: wgcf 的 AllowedIPs = 0.0.0.0/0, ::/0 是一行写 v4+v6, 整行删除会把 v4
+# 一起删光 -> allowed ips (none) -> 无路由无握手(transfer 恒 0/0), 隧道永远
+# 建立失败。2026-10-28 US VPS 实测教训。正确做法: 整行替换为仅 v4。
 if [ "$(cat /proc/sys/net/ipv6/conf/all/disable_ipv6 2>/dev/null)" = "1" ]; then
     log "检测到 IPv6 已禁用, 剔除 v6 配置"
-    sed -i -e '/^Address = .*:/d' -e '/::\/0/d' "$CONF"
+    # wgcf 的 AllowedIPs = 0.0.0.0/0, ::/0 是一行写 v4+v6，整行删会把 v4 一起删光
+    # → allowed ips (none)、握手包根本不发（transfer 恒 0/0）。必须整行替换为仅 v4。
+    sed -i -e '/^Address = .*:/d' -e 's|^AllowedIPs = .*|AllowedIPs = 0.0.0.0/0|' "$CONF"
 fi
 
 # 私有网段排除: 否则 0.0.0.0/0 接管后 docker 网桥/局域网回程也进隧道,
