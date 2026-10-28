@@ -1,0 +1,22 @@
+version: "3.3"
+
+# 内核 WireGuard 极简版: 无需 /dev/net/tun, 只要 NET_ADMIN + sysctl
+services:
+  warp-wg-lite:
+    build: .
+    image: warp-wg-lite:latest
+    container_name: warp1082-lite
+    restart: always
+    # wg-quick 需在容器内写 net.ipv4.conf.all.src_valid_mark, 该 sysctl 只认
+    # 初始命名空间权限, CAP_NET_ADMIN 不够, 必须 privileged
+    privileged: true
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    ports:
+      - "1082:1080"
+    environment:
+      - PROXY_PORT=1080
+      - CHECK_INTERVAL=15
+      # - EXPECT=US        # 可选: 校验出口地区, 不符视为失败并轮换
+    volumes:
+      - ./data:/etc/wireguard

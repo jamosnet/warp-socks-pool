@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="Helvetica,Arial,sans-serif">
+  <rect width="880" height="470" fill="#ffffff"/>
+  <text x="440" y="34" text-anchor="middle" font-size="19" font-weight="bold" fill="#1e293b">压测对比 — 5 线并发 ~3.4MB/s/线（Debian 13, 4GB RAM, 18 轮采样均值）</text>
+
+  <text x="40" y="72" font-size="15" font-weight="bold" fill="#1e293b">CPU 平均占用（%）— 越低越好</text>
+
+  <text x="170" y="106" text-anchor="end" font-size="12" fill="#334155">lite (内核 WG)</text>
+  <rect x="180" y="92" width="127" height="20" rx="4" fill="#16a34a"/>
+  <text x="314" y="107" font-size="12" font-weight="bold" fill="#16a34a">7.4</text>
+
+  <text x="170" y="140" text-anchor="end" font-size="12" fill="#334155">sing-box 版</text>
+  <rect x="180" y="126" width="324" height="20" rx="4" fill="#2563eb"/>
+  <text x="511" y="141" font-size="12" font-weight="bold" fill="#2563eb">18.9</text>
+
+  <text x="170" y="174" text-anchor="end" font-size="12" fill="#334155">官方 WG (slim)</text>
+  <rect x="180" y="160" width="347" height="20" rx="4" fill="#94a3b8"/>
+  <text x="534" y="175" font-size="12" fill="#475569">20.2</text>
+
+  <text x="170" y="208" text-anchor="end" font-size="12" fill="#334155">caomingjun/warp</text>
+  <rect x="180" y="194" width="398" height="20" rx="4" fill="#94a3b8"/>
+  <text x="585" y="209" font-size="12" fill="#475569">23.2</text>
+
+  <text x="170" y="242" text-anchor="end" font-size="12" fill="#334155">官方 MASQUE (slim)</text>
+  <rect x="180" y="228" width="446" height="20" rx="4" fill="#94a3b8"/>
+  <text x="633" y="243" font-size="12" fill="#475569">26.0</text>
+
+  <text x="40" y="300" font-size="15" font-weight="bold" fill="#1e293b">内存平均占用（MiB）— 越低越好</text>
+
+  <text x="170" y="334" text-anchor="end" font-size="12" fill="#334155">lite (内核 WG)</text>
+  <rect x="180" y="320" width="111" height="20" rx="4" fill="#16a34a"/>
+  <text x="298" y="335" font-size="12" font-weight="bold" fill="#16a34a">24.2</text>
+
+  <text x="170" y="368" text-anchor="end" font-size="12" fill="#334155">sing-box 版</text>
+  <rect x="180" y="354" width="272" height="20" rx="4" fill="#2563eb"/>
+  <text x="459" y="369" font-size="12" font-weight="bold" fill="#2563eb">59.2</text>
+
+  <text x="170" y="402" text-anchor="end" font-size="12" fill="#334155">官方 WG (slim)</text>
+  <rect x="180" y="388" width="440" height="20" rx="4" fill="#94a3b8"/>
+  <text x="627" y="403" font-size="12" fill="#475569">95.7</text>
+
+  <text x="170" y="436" text-anchor="end" font-size="12" fill="#334155">caomingjun/warp</text>
+  <rect x="180" y="422" width="439" height="20" rx="4" fill="#94a3b8"/>
+  <text x="626" y="437" font-size="12" fill="#475569">95.5</text>
+
+  <text x="170" y="462" text-anchor="end" font-size="12" fill="#334155">官方 MASQUE (slim)</text>
+  <rect x="180" y="448" width="466" height="20" rx="4" fill="#94a3b8"/>
+  <text x="653" y="463" font-size="12" fill="#475569">101.3</text>
+</svg>

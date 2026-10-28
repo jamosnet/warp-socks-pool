@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="Helvetica,Arial,sans-serif">
+  <rect width="880" height="400" fill="#fafbfc"/>
+  <text x="440" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">sing-box 版架构 — 用户态 WireGuard，零特权</text>
+
+  <rect x="30" y="150" width="150" height="80" rx="8" fill="#e2e8f0" stroke="#94a3b8"/>
+  <text x="105" y="182" text-anchor="middle" font-size="14" font-weight="bold" fill="#334155">客户端</text>
+  <text x="105" y="204" text-anchor="middle" font-size="12" fill="#475569">passwall / 浏览器 / curl</text>
+
+  <line x1="180" y1="190" x2="250" y2="190" stroke="#64748b" stroke-width="2" marker-end="url(#arrow2)"/>
+  <text x="215" y="178" text-anchor="middle" font-size="11" fill="#475569">socks5/http</text>
+
+  <defs>
+    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowb" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect x="255" y="80" width="430" height="260" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="470" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">warp-sb 容器（零特权：无 NET_ADMIN / 无 tun / 无 sysctl）</text>
+
+  <rect x="275" y="125" width="180" height="60" rx="8" fill="#ffffff" stroke="#2563eb"/>
+  <text x="365" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">sing-box mixed :1080</text>
+  <text x="365" y="170" text-anchor="middle" font-size="11" fill="#475569">SOCKS5 + HTTP，可选认证</text>
+
+  <rect x="275" y="200" width="180" height="120" rx="8" fill="#ffffff" stroke="#2563eb"/>
+  <text x="365" y="224" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">sing-box wireguard</text>
+  <text x="365" y="244" text-anchor="middle" font-size="11" fill="#475569">用户态 WG endpoint</text>
+  <text x="365" y="262" text-anchor="middle" font-size="11" fill="#475569">reserved 字段完整实现</text>
+  <text x="365" y="280" text-anchor="middle" font-size="11" fill="#475569">注册持久化 /data</text>
+  <text x="365" y="298" text-anchor="middle" font-size="11" fill="#475569">48 端点轮换</text>
+
+  <rect x="480" y="125" width="185" height="195" rx="8" fill="#ffffff" stroke="#2563eb"/>
+  <text x="572" y="151" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">sing-box route 分流</text>
+  <text x="572" y="175" text-anchor="middle" font-size="11" fill="#475569">私有网段 → direct（本地）</text>
+  <text x="572" y="195" text-anchor="middle" font-size="11" fill="#475569">其余流量 → WARP 出站</text>
+  <text x="572" y="220" text-anchor="middle" font-size="11" fill="#475569">断线恢复（实测为准）：</text>
+  <text x="572" y="240" text-anchor="middle" font-size="11" fill="#475569">15s 真实 trace 体检 / 3 连败换端点</text>
+  <text x="572" y="260" text-anchor="middle" font-size="11" fill="#475569">重建后实测通过才算修好；</text>
+  <text x="572" y="278" text-anchor="middle" font-size="11" fill="#475569">零特权：不接管路由、无 sysctl，</text>
+  <text x="572" y="296" text-anchor="middle" font-size="11" fill="#475569">NAS / 受限环境友好</text>
+
+  <line x1="455" y1="258" x2="745" y2="258" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowb)"/>
+  <text x="600" y="330" text-anchor="middle" font-size="12" fill="#475569">UDP :2408 / 500 / 1701 / 4500 / 8443 / 903</text>
+
+  <ellipse cx="795" cy="258" rx="55" ry="34" fill="#ffedd5" stroke="#f97316"/>
+  <text x="795" y="253" text-anchor="middle" font-size="12" font-weight="bold" fill="#9a3412">Cloudflare</text>
+  <text x="795" y="271" text-anchor="middle" font-size="11" fill="#9a3412">WARP 边缘</text>
+
+  <text x="440" y="378" text-anchor="middle" font-size="12" fill="#64748b">镜像 ~172MB | 零特权 | 用户态加密 | API 直连注册，30 行 shell 替代 wgcf</text>
+</svg>

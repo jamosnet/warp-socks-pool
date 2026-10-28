@@ -1,0 +1,19 @@
+version: "3.3"
+
+# sing-box 用户态 WireGuard 版: 零特权 (无 NET_ADMIN / 无 tun / 无 sysctl)
+services:
+  warp-sb:
+    build: .
+    image: warp-sb:latest
+    container_name: warp1085-sb
+    restart: always
+    ports:
+      - "1085:1080"
+    environment:
+      - PROXY_PORT=1080
+      - CHECK_INTERVAL=15
+      # - EXPECT=US            # 可选: 出口地区校验
+      # - SOCK_USER=user       # 可选: 代理认证
+      # - SOCK_PWD=pass
+    volumes:
+      - ./data:/data
