@@ -33,13 +33,13 @@
 ### 1. 构建镜像
 
 ```bash
-git clone <本仓库> && cd warp-socks-pool/sing-box
+git clone https://github.com/jamosnet/warp-socks-pool && cd warp-socks-pool/sing-box
 
 # --build-arg HTTPS_PROXY 是【可选】的：仅构建镜像时用来从 GitHub 下载
 # sing-box 二进制。能直连 GitHub 就直接 docker compose build，什么都不用加。
 # 它只在构建期生效，容器运行期的流量与它毫无关系，不要误会成
 # "所有流量都要走代理"。
-docker compose build --build-arg HTTPS_PROXY=socks5h://192.168.8.124:10808
+docker compose build --build-arg HTTPS_PROXY=socks5h://192.168.1.1:10808
 ```
 
 ### 2. 启动
