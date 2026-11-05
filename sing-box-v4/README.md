@@ -62,13 +62,13 @@ curl --socks5-hostname 127.0.0.1:1085 https://cloudflare.com/cdn-cgi/trace
 
 ```bash
 # 最简：全默认参数（注意：无任何特权参数）
-docker run -itd --name warp1085 \
+docker run -d --name warp1085 \
   -p 1085:1080 \
   -v /tmp/warp-sb-data:/data \
   warp-sb:latest
 
 # 带认证 + 地区校验
-docker run -itd --name warp-sb-auth \
+docker run -d --name warp-sb-auth \
   -p 1086:1080 \
   -e SOCK_USER=myuser \
   -e SOCK_PWD=mypass \
