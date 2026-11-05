@@ -12,6 +12,9 @@ services:
     environment:
       - PROXY_PORT=1080
       - CHECK_INTERVAL=15
+      - EGRESS=v6            # v6: 优先 v6, 拿不到自动退回 v4; v6only: 强制 v6; v4: 强制 v4
+      - DNS_MODE=local       # local: 容器 DNS 解析目标; remote: 走 WARP 内 DoH
+      - V6_TRIES=3           # v6 模式先试几个端点找 v6, 用完仍无则软降级 v4
       # - EXPECT=US            # 可选: 出口地区校验
       # - SOCK_USER=user       # 可选: 代理认证
       # - SOCK_PWD=pass
